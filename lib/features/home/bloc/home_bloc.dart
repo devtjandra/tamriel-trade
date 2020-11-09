@@ -8,17 +8,23 @@ class HomeBloc extends ChangeNotifier {
 
   List<Item> items = List();
   bool isWaiting = false;
+  String searchValue = "";
 
-  HomeBloc(this.context) {
-    getItem();
+  HomeBloc(this.context);
+
+  void setSearch(String value) {
+    searchValue = value;
+    notifyListeners();
   }
 
-  void getItem() async {
+  void search() async {
+    if (searchValue.isEmpty) return;
+
     isWaiting = true;
     notifyListeners();
 
     items = await repository
-        .search("Daedra heart")
+        .search(searchValue)
         .catchError((error) => debugPrint("Error: ${error.toString()}"));
     isWaiting = false;
     notifyListeners();

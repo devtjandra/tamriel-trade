@@ -81,7 +81,8 @@ class HomeRepository {
         char.toUpperCase() == char && !_isNumeric(char)
             ? formatted += " $char"
             : formatted += char);
-    return formatted.trim();
+      
+    return formatted.replaceAll(" :", ":").trim();
   }
 
   bool _isNumeric(String str) {
