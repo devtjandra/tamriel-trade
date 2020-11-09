@@ -22,7 +22,7 @@ class HomeBloc extends ChangeNotifier {
   void restartSearch() {
     FocusScope.of(context).unfocus();
 
-    items = List();
+    items.clear();
     page = 1;
 
     search();
@@ -45,7 +45,11 @@ class HomeBloc extends ChangeNotifier {
     await repository.search(searchValue, page: page).then((value) {
       items.addAll(value);
       page++;
-    }).catchError((error) => items.isEmpty ? isError = true : {});
+    }).catchError((error) {
+      if (items.isEmpty) isError = true;
+      isWaiting = false;
+      notifyListeners();
+    });
 
     isWaiting = false;
     notifyListeners();

@@ -14,10 +14,12 @@ class HomeList extends StatelessWidget {
       }
     });
 
-    return SingleChildScrollView(
-      controller: _controller,
-      child: Column(children: _items(context)),
-    );
+    return context.watch<HomeBloc>().isError
+        ? Container(alignment: Alignment.center, child: Text("Error! Boo!"))
+        : SingleChildScrollView(
+            controller: _controller,
+            child: Column(children: _items(context)),
+          );
   }
 
   List<Widget> _items(BuildContext context) {

@@ -25,7 +25,12 @@ class HomeRepository {
       "priceMax": maxPrice != null ? maxPrice.toString() : "",
     }));
 
-    return _readResponse(response);
+    try {
+      final result = _readResponse(response);
+      return result;
+    } catch (e) {
+      throw e;
+    }
   }
 
   Dio _dio(Map<String, String> params) {
