@@ -98,8 +98,8 @@ class ItemCard extends StatelessWidget {
     if (time < 60) return "$time mins ago";
 
     if (time < 1440)
-      return "${time / 60} hours ${time % 60} mins ago";
+      return "${time ~/ 60} hours ${time % 60} mins ago";
     else
-      return "${time / 1400} days ago";
+      return "${time ~/ 1400} days ago";
   }
 }
