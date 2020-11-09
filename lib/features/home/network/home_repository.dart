@@ -77,11 +77,11 @@ class HomeRepository {
 
   String _formatted(String ugly) {
     String formatted = "";
-    ugly.characters.forEach((char) =>
-        char.toUpperCase() == char && !_isNumeric(char)
+    ugly.replaceAll("&#39;", "'").characters.forEach((char) =>
+        char.toLowerCase() != char && !_isNumeric(char)
             ? formatted += " $char"
             : formatted += char);
-      
+
     return formatted.replaceAll(" :", ":").trim();
   }
 

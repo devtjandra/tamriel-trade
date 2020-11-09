@@ -16,6 +16,9 @@ class HomeSearch extends StatelessWidget {
           Icon(Icons.filter_outlined)
         ]),
         FlatButton(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(50.0))),
+            color: Colors.lightBlue,
             onPressed: () => context.read<HomeBloc>().search(),
             child: Text("Search"))
       ],
