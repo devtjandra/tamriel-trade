@@ -9,9 +9,14 @@ class HomeRepository {
   static const baseUrl = "https://us.tamrieltradecentre.com/";
 
   Future<List<Item>> search(String name,
-      {int minQuantity, int maxQuantity, int minPrice, int maxPrice}) async {
+      {int page,
+      int minQuantity,
+      int maxQuantity,
+      int minPrice,
+      int maxPrice}) async {
     final response = await _call(_dio({
       "searchType": "sell",
+      "page": page != null ? page.toString() : "1",
       "isChampionPoint": "false",
       "itemNamePattern": name.replaceAll(" ", "+"),
       "amountMin": minQuantity != null ? minQuantity.toString() : "",

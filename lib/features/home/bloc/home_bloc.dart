@@ -8,6 +8,8 @@ class HomeBloc extends ChangeNotifier {
 
   List<Item> items = List();
   bool isWaiting = false;
+  bool isError = false;
+  int page = 1;
   String searchValue = "";
 
   HomeBloc(this.context);
@@ -17,15 +19,34 @@ class HomeBloc extends ChangeNotifier {
     notifyListeners();
   }
 
+  void restartSearch() {
+    FocusScope.of(context).unfocus();
+
+    items = List();
+    page = 1;
+
+    search();
+  }
+
+  void bottom() {
+    if (items.isEmpty || items.length % 10 > 0) return;
+
+    search();
+  }
+
   void search() async {
+    if (isWaiting) return;
     if (searchValue.isEmpty) return;
 
+    isError = false;
     isWaiting = true;
     notifyListeners();
 
-    items = await repository
-        .search(searchValue)
-        .catchError((error) => debugPrint("Error: ${error.toString()}"));
+    await repository.search(searchValue, page: page).then((value) {
+      items.addAll(value);
+      page++;
+    }).catchError((error) => items.isEmpty ? isError = true : {});
+
     isWaiting = false;
     notifyListeners();
   }

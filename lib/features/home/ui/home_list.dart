@@ -4,9 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class HomeList extends StatelessWidget {
+  final _controller = ScrollController();
+
   @override
   Widget build(BuildContext context) {
+    _controller.addListener(() {
+      if (_controller.position.atEdge) {
+        if (_controller.position.pixels != 0) context.read<HomeBloc>().bottom();
+      }
+    });
+
     return SingleChildScrollView(
+      controller: _controller,
       child: Column(children: _items(context)),
     );
   }

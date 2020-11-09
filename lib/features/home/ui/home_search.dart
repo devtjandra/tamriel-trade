@@ -1,5 +1,6 @@
 import 'package:TamrielTrade/features/home/bloc/home_bloc.dart';
 import 'package:TamrielTrade/views/input.dart';
+import 'package:TamrielTrade/views/progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:TamrielTrade/values/values.dart';
@@ -25,9 +26,17 @@ class HomeSearch extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(50.0))),
                 color: Colors.black87,
-                onPressed: () => context.read<HomeBloc>().search(),
+                onPressed: () => context.read<HomeBloc>().restartSearch(),
                 child: Text("Search", style: TextStyle(color: Colors.white))),
-          )
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: Dimensions.padding6),
+            child: AnimatedOpacity(
+              opacity: context.watch<HomeBloc>().isWaiting ? 1 : 0,
+              duration: Duration(milliseconds: 100),
+              child: ProgressBar(),
+            ),
+          ),
         ],
       ),
     );
