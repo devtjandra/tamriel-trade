@@ -21,14 +21,14 @@ class MinMaxInput extends StatelessWidget {
         Row(
           children: [
             Container(
-              width: 100,
+              width: Dimensions.minMaxWidth,
               child: Input(
                   hint: "Min",
                   onChange: onChangeMin != null ? onChangeMin : (value) {}),
             ),
             Expanded(child: Container()),
             Container(
-              width: 100,
+              width: Dimensions.minMaxWidth,
               child: Input(
                   hint: "Max",
                   onChange: onChangeMax != null ? onChangeMax : (value) {}),

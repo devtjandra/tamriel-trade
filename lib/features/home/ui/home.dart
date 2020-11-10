@@ -12,21 +12,22 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SlidingUpPanel(
-        controller: _controller,
-        minHeight: 0,
-        maxHeight: 300,
-        defaultPanelState: PanelState.CLOSED,
-        panel: Filter(),
-        borderRadius: BorderRadius.circular(30.0),
-        body: SafeArea(
-          child: ChangeNotifierProvider(
+    return Scaffold(
+        body: ChangeNotifierProvider(
             create: (_) => HomeBloc(context, _controller),
-            child: Scaffold(
-              body: _body(),
-            ),
-          ),
-        ));
+            child: SlidingUpPanel(
+              controller: _controller,
+              minHeight: 0,
+              maxHeight: 250,
+              defaultPanelState: PanelState.CLOSED,
+              panel: Filter(),
+              borderRadius: BorderRadius.circular(30.0),
+              body: SafeArea(
+                child: Scaffold(
+                  body: _body(),
+                ),
+              ),
+            )));
   }
 
   Widget _body() {

@@ -10,10 +10,13 @@ class FilterBody extends StatelessWidget {
     return Scaffold(
       body: Container(
         padding: EdgeInsets.symmetric(
-            horizontal: Dimensions.padding16, vertical: Dimensions.padding12),
+            horizontal: Dimensions.padding24, vertical: Dimensions.padding16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            Container(
+              height: Dimensions.padding12,
+            ),
             // _clear(context),
             _quantity(context),
             Container(
