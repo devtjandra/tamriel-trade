@@ -30,17 +30,17 @@ class ItemCard extends StatelessWidget {
             "Location",
             style: Styles.description,
           ),
-          Padding(
-            padding: EdgeInsets.only(bottom: Dimensions.padding6),
-            child: Text(item.location),
+          Text(item.location),
+          Container(
+            height: Dimensions.padding6,
           ),
           Text(
             "Trader",
             style: Styles.description,
           ),
-          Padding(
-            padding: EdgeInsets.only(bottom: Dimensions.padding6),
-            child: Text(item.trader),
+          Text(item.trader),
+          Container(
+            height: Dimensions.padding6,
           ),
           _priceRow("Price", item.price, false),
           _priceRow("Quantity", item.quantity, false),

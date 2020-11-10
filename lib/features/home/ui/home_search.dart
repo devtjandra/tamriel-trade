@@ -15,28 +15,30 @@ class HomeSearch extends StatelessWidget {
           Row(children: [
             Expanded(
                 child: Input(
-              callback: (value) => context.read<HomeBloc>().setSearch(value),
+              onChange: (value) => context.read<HomeBloc>().setSearch(value),
               hint: "Search",
             )),
-            IconButton(icon: Icon(Icons.filter_list_rounded), onPressed: () {}),
+            IconButton(
+                icon: Icon(Icons.filter_list_rounded),
+                onPressed: () => context.read<HomeBloc>().filter()),
           ]),
-          Padding(
-            padding: EdgeInsets.only(top: Dimensions.padding6),
-            child: FlatButton(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(50.0))),
-                color: Colors.black87,
-                onPressed: () => context.read<HomeBloc>().restartSearch(),
-                child: Text("Search", style: TextStyle(color: Colors.white))),
+          Container(
+            height: Dimensions.padding6,
           ),
-          Padding(
-            padding: EdgeInsets.only(top: Dimensions.padding6),
-            child: AnimatedOpacity(
-              opacity: context.watch<HomeBloc>().isWaiting ? 1 : 0,
-              duration: Duration(milliseconds: 100),
-              child: ProgressBar(),
-            ),
+          RaisedButton(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(50.0))),
+              color: Colors.black87,
+              onPressed: () => context.read<HomeBloc>().restartSearch(),
+              child: Text("Search", style: TextStyle(color: Colors.white))),
+          Container(
+            height: Dimensions.padding6,
           ),
+          AnimatedOpacity(
+            opacity: context.watch<HomeBloc>().isWaiting ? 1 : 0,
+            duration: Duration(milliseconds: 100),
+            child: ProgressBar(),
+          )
         ],
       ),
     );

@@ -6,4 +6,5 @@ class Dimensions {
   static const padding16 = 16.0;
 
   static const image = 40.0;
+  static const panelRadius = 25.0;
 }

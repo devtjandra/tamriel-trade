@@ -1,9 +1,12 @@
 import 'package:TamrielTrade/features/home/network/home_repository.dart';
 import 'package:TamrielTrade/models/item.dart';
+import 'package:TamrielTrade/models/filter_options.dart';
 import 'package:flutter/material.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class HomeBloc extends ChangeNotifier {
-  final BuildContext context;
+  final BuildContext _context;
+  final PanelController _controller;
   final repository = HomeRepository();
 
   List<Item> items = List();
@@ -11,8 +14,9 @@ class HomeBloc extends ChangeNotifier {
   bool isError = false;
   int page = 1;
   String searchValue = "";
+  FilterOptions filterOptions;
 
-  HomeBloc(this.context);
+  HomeBloc(this._context, this._controller);
 
   void setSearch(String value) {
     searchValue = value;
@@ -20,7 +24,7 @@ class HomeBloc extends ChangeNotifier {
   }
 
   void restartSearch() {
-    FocusScope.of(context).unfocus();
+    FocusScope.of(_context).unfocus();
 
     items.clear();
     page = 1;
@@ -34,6 +38,17 @@ class HomeBloc extends ChangeNotifier {
     search();
   }
 
+  void filter() {
+    FocusScope.of(_context).unfocus();
+    _controller.open();
+  }
+
+  void setFilterOptions(FilterOptions value) {
+    filterOptions = value;
+    _controller.close();
+    restartSearch();
+  }
+
   void search() async {
     if (isWaiting) return;
     if (searchValue.isEmpty) return;
@@ -42,7 +57,16 @@ class HomeBloc extends ChangeNotifier {
     isWaiting = true;
     notifyListeners();
 
-    await repository.search(searchValue, page: page).then((value) {
+    await repository
+        .search(
+      searchValue,
+      page: page,
+      minQuantity: filterOptions != null ? filterOptions.minQuantity : null,
+      maxQuantity: filterOptions != null ? filterOptions.maxQuantity : null,
+      minPrice: filterOptions != null ? filterOptions.minPrice : null,
+      maxPrice: filterOptions != null ? filterOptions.maxPrice : null,
+    )
+        .then((value) {
       items.addAll(value);
       page++;
     }).catchError((error) {
