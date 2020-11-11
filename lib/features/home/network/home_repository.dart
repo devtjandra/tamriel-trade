@@ -54,19 +54,21 @@ class HomeRepository {
       valueSplit.forEach((element) {
         if (element.replaceAll(" ", "").isNotEmpty) {
           actualValues.add(element);
+          debugPrint(element);
         }
       });
 
-      items.add(Item(
-        name: actualValues[0].trim(),
-        location: actualValues[4].trim(),
-        trader: actualValues[5].trim(),
-        price: actualValues[6].trim(),
-        quantity: actualValues[8].trim(),
-        total: actualValues[10].trim(),
-        lastSeen: lastSeen,
-        image: image,
-      ));
+      if (actualValues.length == 11)
+        items.add(Item(
+          name: actualValues[0].trim(),
+          location: actualValues[4].trim(),
+          trader: actualValues[5].trim(),
+          price: actualValues[6].trim(),
+          quantity: actualValues[8].trim(),
+          total: actualValues[10].trim(),
+          lastSeen: lastSeen,
+          image: image,
+        ));
     });
 
     debugPrint("returning ${items.length} items");
