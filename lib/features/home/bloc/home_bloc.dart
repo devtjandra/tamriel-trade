@@ -63,6 +63,7 @@ class HomeBloc extends ChangeNotifier {
       items.addAll(value);
       page++;
     }).catchError((error) {
+      debugPrint("Error: $error");
       if (items.isEmpty) isError = true;
       isWaiting = false;
       notifyListeners();

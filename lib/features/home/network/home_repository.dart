@@ -1,17 +1,14 @@
 import 'package:TamrielTrade/models/filter_options.dart';
 import 'package:TamrielTrade/models/item.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:web_scraper/web_scraper.dart';
 
-// This is the most disgusting class I've written in my life
-// I am glad it's over
-// Forgive me for this Programmer Jesus
 class HomeRepository {
   static const baseUrl = "https://us.tamrieltradecentre.com/";
 
   Future<List<Item>> search(String name,
       {int page, FilterOptions options}) async {
-    final response = await _call(_dio({
+    final params = {
       "searchType": "sell",
       "page": page != null ? page.toString() : "1",
       "isChampionPoint": "false",
@@ -24,103 +21,62 @@ class HomeRepository {
       "priceMax": options.maxPrice != null ? options.maxPrice.toString() : "",
       "sortBy": options.sortType != null ? options.sortType : "",
       "order": options.sortOrder != null ? options.sortOrder : "",
-    }));
+    };
 
-    try {
-      final result = _readResponse(response);
-      return result;
-    } catch (e) {
-      throw e;
-    }
-  }
+    final webScraper = WebScraper(baseUrl);
+    await webScraper.loadWebPage(getRequest(params));
 
-  Dio _dio(Map<String, String> params) {
-    var dio = Dio();
-    dio.options = BaseOptions(
-        baseUrl: baseUrl,
-        responseType: ResponseType.plain,
-        queryParameters: params);
-    return dio;
-  }
+    final result = webScraper.getElement('tr.cursor-pointer', []);
+    final images = webScraper.getElement('img.trade-item-icon', ['src']);
+    final lastSeens = webScraper
+        .getElement('tr.cursor-pointer > td.hidden-xs', ['data-mins-elapsed']);
 
-  Future<String> _call(Dio dio) {
-    return dio.get("/pc/trade/searchResult").then((value) => value.data);
-  }
+    List<Map<String, dynamic>> validSeen = List();
 
-  List<Item> _readResponse(String response) {
-    // debugPrint("Initial: ${response.substring(0, 30)}");
-    String removeLines = response.replaceAll("\\\n", " ");
-    String removeSpaces = removeLines.replaceAll(" ", "");
-    // debugPrint("RemoveLines: $removeLines");
-    final cropBefore = removeSpaces.split("trade-list-tablemax-width")[1];
-    // debugPrint("CropBefore: $cropBefore");
-    final cropAfter = cropBefore.split("</table>")[0];
-    // debugPrint("CropAfter: $cropAfter");
-    List<String> splitItems = cropAfter.split("alt=\"Icon\"");
-    // debugPrint("Total items: ${splitItems.length}");
+    lastSeens.forEach((element) {
+      if (element["attributes"].containsKey("data-mins-elapsed") &&
+          element["attributes"]["data-mins-elapsed"] != null)
+        validSeen.add(element);
+    });
 
     List<Item> items = List();
 
-    splitItems.forEach((i) {
-      if (splitItems.indexOf(i) == 0) return;
+    result.forEach((element) {
+      final index = result.indexOf(element);
+      final image = images[index]["attributes"]["src"];
+      final lastSeen = validSeen[index]["attributes"]["data-mins-elapsed"];
 
-      // debugPrint("Item: $i");
-      final splitFields = i.split("<div");
-      debugPrint(
-          "Split fields for ${splitItems.indexOf(i)} ${splitFields.length}");
-      final item = Item(
-          name: _formatted(_grabFromDivAfter(splitFields[1]).trim()),
-          location: _formatted(_grabFromDivAfter(splitFields[4])),
-          trader: _formatted(_grabFromDivAfter(splitFields[5])),
-          price: _formatted(_grabFromDivBefore(splitFields[5])),
-          quantity: _formatted(_grabFromDivBefore(splitFields[6])),
-          total: _formatted(_getTotal(splitFields[7]).split("</td>")[0]),
-          lastSeen: _formatted(_getLastSeen(splitFields[7])),
-          image: splitFields[0].split("\"")[1]);
+      final value = element["title"] as String;
 
-      debugPrint(
-          "Item: ${item.name} ${item.location} ${item.trader} ${item.image} ${item.price} ${item.quantity} ${item.total} ${item.lastSeen}");
-      items.add(item);
+      List<String> valueSplit = value.split("\n");
+      List<String> actualValues = List();
+
+      valueSplit.forEach((element) {
+        if (element.replaceAll(" ", "").isNotEmpty) {
+          actualValues.add(element);
+        }
+      });
+
+      items.add(Item(
+        name: actualValues[0].trim(),
+        location: actualValues[4].trim(),
+        trader: actualValues[5].trim(),
+        price: actualValues[6].trim(),
+        quantity: actualValues[8].trim(),
+        total: actualValues[10].trim(),
+        lastSeen: lastSeen,
+        image: image,
+      ));
     });
 
+    debugPrint("returning ${items.length} items");
     return items;
   }
 
-  String _formatted(String ugly) {
-    String formatted = "";
-    ugly.replaceAll("&#39;", "'").characters.forEach((char) =>
-        char.toLowerCase() != char && !_isNumeric(char)
-            ? formatted += " $char"
-            : formatted += char);
-
-    return formatted.replaceAll(" :", ":").trim();
-  }
-
-  bool _isNumeric(String str) {
-    if (str == null) {
-      return false;
-    }
-    return double.tryParse(str) != null;
-  }
-
-  String _getLastSeen(String div) {
-    final lastSeen = div.split("data-mins-elapsed=\"")[1].split("\"></td>")[0];
-    return lastSeen;
-  }
-
-  String _getTotal(String div) {
-    final total = div.split("</td>")[0].split("/>")[1];
-    return total;
-  }
-
-  String _grabFromDivAfter(String div) {
-    final after = div.split(">")[1].split("<")[0];
-    return after;
-  }
-
-  String _grabFromDivBefore(String div) {
-    final split = div.split("/>");
-    final before = split[split.length - 1];
-    return before;
+  String getRequest(Map<String, String> params) {
+    String request = "/pc/trade/searchResult?";
+    params.forEach((key, value) => request += "$key=$value&");
+    debugPrint("Request: $request");
+    return request;
   }
 }
