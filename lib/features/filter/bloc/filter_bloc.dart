@@ -1,3 +1,4 @@
+import 'package:TamrielTrade/common/types.dart';
 import 'package:TamrielTrade/features/home/bloc/home_bloc.dart';
 import 'package:TamrielTrade/models/filter_options.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,8 @@ class FilterBloc extends ChangeNotifier {
   int _maxQuantity;
   int _minPrice;
   int _maxPrice;
+  String sortType = SortType.lastSeen;
+  String sortOrder = SortOrder.ascending;
 
   FilterBloc(this._context);
 
@@ -33,6 +36,16 @@ class FilterBloc extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setSortType(String value) {
+    sortType = value;
+    notifyListeners();
+  }
+
+  void setSortOrder(String value) {
+    sortOrder = value;
+    notifyListeners();
+  }
+
   void clear() {
     // TODO: Damn this might take a while
   }
@@ -42,6 +55,8 @@ class FilterBloc extends ChangeNotifier {
         minQuantity: _minQuantity,
         maxQuantity: _maxQuantity,
         minPrice: _minPrice,
-        maxPrice: _maxPrice));
+        maxPrice: _maxPrice,
+        sortType: sortType,
+        sortOrder: sortOrder));
   }
 }

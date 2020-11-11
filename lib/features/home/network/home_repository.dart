@@ -1,3 +1,4 @@
+import 'package:TamrielTrade/models/filter_options.dart';
 import 'package:TamrielTrade/models/item.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -9,20 +10,20 @@ class HomeRepository {
   static const baseUrl = "https://us.tamrieltradecentre.com/";
 
   Future<List<Item>> search(String name,
-      {int page,
-      int minQuantity,
-      int maxQuantity,
-      int minPrice,
-      int maxPrice}) async {
+      {int page, FilterOptions options}) async {
     final response = await _call(_dio({
       "searchType": "sell",
       "page": page != null ? page.toString() : "1",
       "isChampionPoint": "false",
       "itemNamePattern": name.replaceAll(" ", "+"),
-      "amountMin": minQuantity != null ? minQuantity.toString() : "",
-      "amountMax": maxQuantity != null ? maxQuantity.toString() : "",
-      "priceMin": minPrice != null ? minPrice.toString() : "",
-      "priceMax": maxPrice != null ? maxPrice.toString() : "",
+      "amountMin":
+          options.minQuantity != null ? options.minQuantity.toString() : "",
+      "amountMax":
+          options.maxQuantity != null ? options.maxQuantity.toString() : "",
+      "priceMin": options.minPrice != null ? options.minPrice.toString() : "",
+      "priceMax": options.maxPrice != null ? options.maxPrice.toString() : "",
+      "sortBy": options.sortType != null ? options.sortType : "",
+      "order": options.sortOrder != null ? options.sortOrder : "",
     }));
 
     try {

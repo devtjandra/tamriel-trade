@@ -14,7 +14,7 @@ class HomeBloc extends ChangeNotifier {
   bool isError = false;
   int page = 1;
   String searchValue = "";
-  FilterOptions filterOptions;
+  FilterOptions filterOptions = FilterOptions();
 
   HomeBloc(this._context, this._controller);
 
@@ -58,14 +58,7 @@ class HomeBloc extends ChangeNotifier {
     notifyListeners();
 
     await repository
-        .search(
-      searchValue,
-      page: page,
-      minQuantity: filterOptions != null ? filterOptions.minQuantity : null,
-      maxQuantity: filterOptions != null ? filterOptions.maxQuantity : null,
-      minPrice: filterOptions != null ? filterOptions.minPrice : null,
-      maxPrice: filterOptions != null ? filterOptions.maxPrice : null,
-    )
+        .search(searchValue, page: page, options: filterOptions)
         .then((value) {
       items.addAll(value);
       page++;

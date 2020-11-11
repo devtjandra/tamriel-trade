@@ -1,10 +1,15 @@
+import 'package:TamrielTrade/common/types.dart';
 import 'package:TamrielTrade/features/filter/bloc/filter_bloc.dart';
 import 'package:TamrielTrade/values/values.dart';
 import 'package:TamrielTrade/views/min_max_input.dart';
+import 'package:TamrielTrade/views/radio_row.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class FilterBody extends StatelessWidget {
+  final sortTypes = [SortType.lastSeen, SortType.itemName, SortType.price];
+  final sortOrders = [SortOrder.ascending, SortOrder.descending];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,6 +23,22 @@ class FilterBody extends StatelessWidget {
               height: Dimensions.padding12,
             ),
             // _clear(context),
+            RadioRow(
+                options: sortTypes,
+                selectedOption: context.watch<FilterBloc>().sortType,
+                onSelect: (value) =>
+                    context.read<FilterBloc>().setSortType(value)),
+            Container(
+              height: Dimensions.padding12,
+            ),
+            RadioRow(
+                options: sortOrders,
+                selectedOption: context.watch<FilterBloc>().sortOrder,
+                onSelect: (value) =>
+                    context.read<FilterBloc>().setSortOrder(value)),
+            Container(
+              height: Dimensions.padding12,
+            ),
             _quantity(context),
             Container(
               height: Dimensions.padding12,

@@ -18,7 +18,7 @@ class Home extends StatelessWidget {
             child: SlidingUpPanel(
               controller: _controller,
               minHeight: 0,
-              maxHeight: 250,
+              maxHeight: 350,
               defaultPanelState: PanelState.CLOSED,
               panel: Filter(),
               borderRadius: BorderRadius.circular(30.0),
