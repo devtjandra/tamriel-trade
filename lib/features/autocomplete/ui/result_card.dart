@@ -24,11 +24,14 @@ class ResultCard extends StatelessWidget {
   Widget _item() {
     return Padding(
       padding: EdgeInsets.symmetric(
-          horizontal: Dimensions.padding16, vertical: Dimensions.padding12),
+          horizontal: Dimensions.padding16, vertical: Dimensions.padding8),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           ItemImage("/content/icons/${result.icon}"),
+          Container(
+            width: Dimensions.padding12,
+          ),
           Expanded(
               child: Text(
             result.value,

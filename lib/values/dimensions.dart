@@ -9,4 +9,5 @@ class Dimensions {
   static const image = 40.0;
   static const panelRadius = 25.0;
   static const minMaxWidth = 120.0;
+  static const loadingSize = 20.0;
 }

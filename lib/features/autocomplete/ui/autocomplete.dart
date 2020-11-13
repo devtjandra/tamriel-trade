@@ -10,15 +10,15 @@ class Autocomplete extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         color: Colors.white,
-        padding: EdgeInsets.symmetric(
-            horizontal: Dimensions.padding24, vertical: Dimensions.padding16),
+        padding: EdgeInsets.symmetric(vertical: Dimensions.padding16),
         child: SingleChildScrollView(
           child: Column(children: _items(context)),
         ));
   }
 
   List<Widget> _items(BuildContext context) {
-    if (context.watch<HomeBloc>().isWaitingAutocomplete) return [ProgressBar()];
+    if (context.watch<HomeBloc>().isWaitingAutocomplete)
+      return [Container(height: Dimensions.padding24), ProgressBar()];
 
     final results = context.watch<HomeBloc>().results;
     List<Widget> cards = List();
