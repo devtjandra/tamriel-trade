@@ -13,11 +13,7 @@ class HomeSearch extends StatelessWidget {
       child: Column(
         children: [
           Row(children: [
-            Expanded(
-                child: Input(
-              onChange: (value) => context.read<HomeBloc>().setSearch(value),
-              hint: "Search",
-            )),
+            Expanded(child: _input(context)),
             IconButton(
                 icon: Icon(Icons.filter_list_rounded),
                 onPressed: () => context.read<HomeBloc>().openFilter()),
@@ -42,5 +38,22 @@ class HomeSearch extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Widget _input(BuildContext context) {
+    final autocomplete = context.watch<HomeBloc>().autocompleteResult;
+
+    if (autocomplete != null) {
+      return InkWell(
+          onTap: () => context.read<HomeBloc>().clearAutocomplete(),
+          child: Input(
+            definiteValue: autocomplete.value,
+          ));
+    } else {
+      return Input(
+        onChange: (value) => context.read<HomeBloc>().setSearch(value),
+        hint: "Search",
+      );
+    }
   }
 }
