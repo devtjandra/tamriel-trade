@@ -17,7 +17,7 @@ class HomeRepository {
       "isChampionPoint": "false",
       "itemNamePattern":
           autocomplete != null ? autocomplete.value : name.replaceAll(" ", "+"),
-      "itemId": autocomplete != null ? autocomplete.itemId : "",
+      "itemId": autocomplete != null ? autocomplete.itemId.toString(): "",
       "amountMin":
           options.minQuantity != null ? options.minQuantity.toString() : "",
       "amountMax":

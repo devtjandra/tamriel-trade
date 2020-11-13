@@ -1,8 +1,10 @@
+import 'package:TamrielTrade/features/home/bloc/home_bloc.dart';
 import 'package:TamrielTrade/models/autocomplete_result.dart';
 import 'package:TamrielTrade/values/values.dart';
 import 'package:TamrielTrade/views/horizontal_line.dart';
 import 'package:TamrielTrade/views/item_image.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ResultCard extends StatelessWidget {
   final AutocompleteResult result;
@@ -10,9 +12,12 @@ class ResultCard extends StatelessWidget {
   ResultCard(this.result);
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [_item(), HorizontalLine()],
+    return InkWell(
+      onTap: () => context.read<HomeBloc>().setAutocomplete(result),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [_item(), HorizontalLine()],
+      ),
     );
   }
 

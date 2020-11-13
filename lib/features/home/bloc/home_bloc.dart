@@ -110,7 +110,6 @@ class HomeBloc extends ChangeNotifier {
   }
 
   void autocomplete() async {
-    debugPrint("Calling autocomplete...");
     if (isWaitingAutocomplete) return;
     if (searchValue.isEmpty) return;
 
@@ -118,12 +117,9 @@ class HomeBloc extends ChangeNotifier {
     isWaitingAutocomplete = true;
     notifyListeners();
 
-    debugPrint("Searching for $searchValue");
     await repository.autocomplete(searchValue).then((value) {
-      debugPrint("Results! ${value.length} results!");
       results = value;
     }).catchError((error) {
-      debugPrint("Error: $error");
       // if (items.isEmpty) isError = true;
       isWaitingAutocomplete = false;
       notifyListeners();

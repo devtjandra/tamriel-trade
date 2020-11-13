@@ -19,29 +19,41 @@ class Home extends StatelessWidget {
         body: ChangeNotifierProvider(
             create: (_) =>
                 HomeBloc(context, _filterController, _autocompleteController),
-            child: Stack(children: [
-              SlidingUpPanel(
-                controller: _filterController,
-                minHeight: 0,
-                maxHeight: 350,
-                defaultPanelState: PanelState.CLOSED,
-                panel: Filter(),
-                borderRadius: BorderRadius.circular(30.0),
-                body: SafeArea(
-                  child: Scaffold(
-                    body: _body(),
+            child: WillPopScope(
+                onWillPop: () async {
+                  if (_autocompleteController.isPanelOpen) {
+                    _autocompleteController.close();
+                    return false;
+                  } else if (_filterController.isPanelOpen) {
+                    _filterController.close();
+                    return false;
+                  } else {
+                    return true;
+                  }
+                },
+                child: Stack(children: [
+                  SlidingUpPanel(
+                    controller: _filterController,
+                    minHeight: 0,
+                    maxHeight: 350,
+                    defaultPanelState: PanelState.CLOSED,
+                    panel: Filter(),
+                    borderRadius: BorderRadius.circular(30.0),
+                    body: SafeArea(
+                      child: Scaffold(
+                        body: _body(),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              SlidingUpPanel(
-                  controller: _autocompleteController,
-                  minHeight: 0,
-                  maxHeight: MediaQuery.of(context).size.height - 70,
-                  defaultPanelState: PanelState.CLOSED,
-                  panel: Autocomplete(),
-                  borderRadius: BorderRadius.circular(30.0),
-                  body: Container())
-            ])));
+                  SlidingUpPanel(
+                      controller: _autocompleteController,
+                      minHeight: 0,
+                      maxHeight: MediaQuery.of(context).size.height - 150,
+                      defaultPanelState: PanelState.CLOSED,
+                      panel: Autocomplete(),
+                      borderRadius: BorderRadius.circular(30.0),
+                      body: Container())
+                ]))));
   }
 
   Widget _body() {
