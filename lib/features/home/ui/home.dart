@@ -1,3 +1,4 @@
+import 'package:TamrielTrade/features/autocomplete/ui/autocomplete.dart';
 import 'package:TamrielTrade/features/filter/ui/filter.dart';
 import 'package:TamrielTrade/features/home/bloc/home_bloc.dart';
 import 'package:TamrielTrade/features/home/ui/home_list.dart';
@@ -14,22 +15,33 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         body: ChangeNotifierProvider(
             create: (_) =>
                 HomeBloc(context, _filterController, _autocompleteController),
-            child: SlidingUpPanel(
-              controller: _filterController,
-              minHeight: 0,
-              maxHeight: 350,
-              defaultPanelState: PanelState.CLOSED,
-              panel: Filter(),
-              borderRadius: BorderRadius.circular(30.0),
-              body: SafeArea(
-                child: Scaffold(
-                  body: _body(),
+            child: Stack(children: [
+              SlidingUpPanel(
+                controller: _filterController,
+                minHeight: 0,
+                maxHeight: 350,
+                defaultPanelState: PanelState.CLOSED,
+                panel: Filter(),
+                borderRadius: BorderRadius.circular(30.0),
+                body: SafeArea(
+                  child: Scaffold(
+                    body: _body(),
+                  ),
                 ),
               ),
-            )));
+              SlidingUpPanel(
+                  controller: _autocompleteController,
+                  minHeight: 0,
+                  maxHeight: MediaQuery.of(context).size.height - 70,
+                  defaultPanelState: PanelState.CLOSED,
+                  panel: Autocomplete(),
+                  borderRadius: BorderRadius.circular(30.0),
+                  body: Container())
+            ])));
   }
 
   Widget _body() {

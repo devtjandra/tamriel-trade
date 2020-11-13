@@ -3,7 +3,6 @@ import 'package:TamrielTrade/models/autocomplete_result.dart';
 import 'package:TamrielTrade/models/item.dart';
 import 'package:TamrielTrade/models/filter_options.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class HomeBloc extends ChangeNotifier {
@@ -17,7 +16,11 @@ class HomeBloc extends ChangeNotifier {
   bool isError = false;
   int page = 1;
   String searchValue = "";
+
   FilterOptions filterOptions = FilterOptions();
+
+  bool isWaitingAutocomplete = false;
+  List<AutocompleteResult> results = List();
   AutocompleteResult autocompleteResult;
 
   HomeBloc(this._context, this._filterController, this._autocompleteController);
@@ -90,6 +93,7 @@ class HomeBloc extends ChangeNotifier {
     _filterController.close();
     _autocompleteController.open();
     _filterController.close();
+    autocomplete();
   }
 
   // Returns from the autocomplete panel with a new autocomplete.
@@ -102,6 +106,30 @@ class HomeBloc extends ChangeNotifier {
 
   void clearAutocomplete() {
     autocompleteResult = null;
+    notifyListeners();
+  }
+
+  void autocomplete() async {
+    debugPrint("Calling autocomplete...");
+    if (isWaitingAutocomplete) return;
+    if (searchValue.isEmpty) return;
+
+    // isError = false;
+    isWaitingAutocomplete = true;
+    notifyListeners();
+
+    debugPrint("Searching for $searchValue");
+    await repository.autocomplete(searchValue).then((value) {
+      debugPrint("Results! ${value.length} results!");
+      results = value;
+    }).catchError((error) {
+      debugPrint("Error: $error");
+      // if (items.isEmpty) isError = true;
+      isWaitingAutocomplete = false;
+      notifyListeners();
+    });
+
+    isWaitingAutocomplete = false;
     notifyListeners();
   }
 }
