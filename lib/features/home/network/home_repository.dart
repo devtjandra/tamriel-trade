@@ -1,18 +1,22 @@
+import 'package:TamrielTrade/models/autocomplete_result.dart';
 import 'package:TamrielTrade/models/filter_options.dart';
 import 'package:TamrielTrade/models/item.dart';
+import 'package:TamrielTrade/values/values.dart';
 import 'package:flutter/material.dart';
 import 'package:web_scraper/web_scraper.dart';
 
 class HomeRepository {
-  static const baseUrl = "https://us.tamrieltradecentre.com/";
-
   Future<List<Item>> search(String name,
-      {int page, FilterOptions options}) async {
+      {int page,
+      FilterOptions options,
+      AutocompleteResult autocomplete}) async {
     final params = {
       "searchType": "sell",
       "page": page != null ? page.toString() : "1",
       "isChampionPoint": "false",
-      "itemNamePattern": name.replaceAll(" ", "+"),
+      "itemNamePattern":
+          autocomplete != null ? autocomplete.value : name.replaceAll(" ", "+"),
+      "itemId": autocomplete != null ? autocomplete.itemId : "",
       "amountMin":
           options.minQuantity != null ? options.minQuantity.toString() : "",
       "amountMax":
@@ -23,7 +27,7 @@ class HomeRepository {
       "order": options.sortOrder != null ? options.sortOrder : "",
     };
 
-    final webScraper = WebScraper(baseUrl);
+    final webScraper = WebScraper(Strings.baseUrl);
     await webScraper.loadWebPage(getRequest(params));
 
     final result = webScraper.getElement('tr.cursor-pointer', []);

@@ -8,15 +8,17 @@ import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class Home extends StatelessWidget {
-  final PanelController _controller = PanelController();
+  final PanelController _filterController = PanelController();
+  final PanelController _autocompleteController = PanelController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: ChangeNotifierProvider(
-            create: (_) => HomeBloc(context, _controller),
+            create: (_) =>
+                HomeBloc(context, _filterController, _autocompleteController),
             child: SlidingUpPanel(
-              controller: _controller,
+              controller: _filterController,
               minHeight: 0,
               maxHeight: 350,
               defaultPanelState: PanelState.CLOSED,

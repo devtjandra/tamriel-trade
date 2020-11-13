@@ -1,2 +1,3 @@
-export 'package:TamrielTrade/values/dimensions.dart';
-export 'package:TamrielTrade/values/styles.dart';
+export './dimensions.dart';
+export './styles.dart';
+export './strings.dart';

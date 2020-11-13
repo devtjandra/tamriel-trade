@@ -20,7 +20,7 @@ class HomeSearch extends StatelessWidget {
             )),
             IconButton(
                 icon: Icon(Icons.filter_list_rounded),
-                onPressed: () => context.read<HomeBloc>().filter()),
+                onPressed: () => context.read<HomeBloc>().openFilter()),
           ]),
           Container(
             height: Dimensions.padding6,
