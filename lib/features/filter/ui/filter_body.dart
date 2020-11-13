@@ -13,44 +13,48 @@ class FilterBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        padding: EdgeInsets.symmetric(
-            horizontal: Dimensions.padding24, vertical: Dimensions.padding16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(
-              height: Dimensions.padding12,
+      backgroundColor: Colors.white,
+      body: Padding(
+          padding: EdgeInsets.symmetric(horizontal: Dimensions.padding24),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  height: Dimensions.padding16,
+                ),
+                // _clear(context),
+                RadioRow(
+                    options: sortTypes,
+                    selectedOption: context.watch<FilterBloc>().sortType,
+                    onSelect: (value) =>
+                        context.read<FilterBloc>().setSortType(value)),
+                Container(
+                  height: Dimensions.padding12,
+                ),
+                RadioRow(
+                    options: sortOrders,
+                    selectedOption: context.watch<FilterBloc>().sortOrder,
+                    onSelect: (value) =>
+                        context.read<FilterBloc>().setSortOrder(value)),
+                Container(
+                  height: Dimensions.padding12,
+                ),
+                _quantity(context),
+                Container(
+                  height: Dimensions.padding12,
+                ),
+                _price(context),
+                Container(
+                  height: Dimensions.padding12,
+                ),
+                _filter(context),
+                Container(
+                  height: Dimensions.padding16,
+                ),
+              ],
             ),
-            // _clear(context),
-            RadioRow(
-                options: sortTypes,
-                selectedOption: context.watch<FilterBloc>().sortType,
-                onSelect: (value) =>
-                    context.read<FilterBloc>().setSortType(value)),
-            Container(
-              height: Dimensions.padding12,
-            ),
-            RadioRow(
-                options: sortOrders,
-                selectedOption: context.watch<FilterBloc>().sortOrder,
-                onSelect: (value) =>
-                    context.read<FilterBloc>().setSortOrder(value)),
-            Container(
-              height: Dimensions.padding12,
-            ),
-            _quantity(context),
-            Container(
-              height: Dimensions.padding12,
-            ),
-            _price(context),
-            Container(
-              height: Dimensions.padding12,
-            ),
-            _filter(context)
-          ],
-        ),
-      ),
+          )),
     );
   }
 

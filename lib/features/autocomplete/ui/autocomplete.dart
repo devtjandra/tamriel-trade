@@ -9,6 +9,7 @@ class Autocomplete extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+        color: Colors.white,
         padding: EdgeInsets.symmetric(
             horizontal: Dimensions.padding24, vertical: Dimensions.padding16),
         child: SingleChildScrollView(
@@ -24,7 +25,7 @@ class Autocomplete extends StatelessWidget {
 
     if (results != null && results.isNotEmpty)
       results.forEach((element) => cards.add(ResultCard(element)));
-      
+
     return cards;
   }
 }

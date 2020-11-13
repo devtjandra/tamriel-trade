@@ -15,6 +15,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.white,
         resizeToAvoidBottomInset: false,
         body: ChangeNotifierProvider(
             create: (_) =>
@@ -35,12 +36,13 @@ class Home extends StatelessWidget {
                   SlidingUpPanel(
                     controller: _filterController,
                     minHeight: 0,
-                    maxHeight: 350,
+                    maxHeight: MediaQuery.of(context).size.height - 160,
                     defaultPanelState: PanelState.CLOSED,
                     panel: Filter(),
                     borderRadius: Styles.panelBorder,
                     body: SafeArea(
                       child: Scaffold(
+                        backgroundColor: Colors.white,
                         body: _body(),
                       ),
                     ),
