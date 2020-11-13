@@ -60,6 +60,8 @@ class HomeBloc extends ChangeNotifier {
   // Restarts the lazy load and fetches data again.
   void restartSearch() {
     FocusScope.of(_context).unfocus();
+    _autocompleteController.close();
+    _filterController.close();
 
     items.clear();
     page = 1;

@@ -38,7 +38,7 @@ class Home extends StatelessWidget {
                     maxHeight: 350,
                     defaultPanelState: PanelState.CLOSED,
                     panel: Filter(),
-                    borderRadius: BorderRadius.circular(30.0),
+                    borderRadius: Styles.panelBorder,
                     body: SafeArea(
                       child: Scaffold(
                         body: _body(),
@@ -51,7 +51,7 @@ class Home extends StatelessWidget {
                       maxHeight: MediaQuery.of(context).size.height - 150,
                       defaultPanelState: PanelState.CLOSED,
                       panel: Autocomplete(),
-                      borderRadius: BorderRadius.circular(30.0),
+                      borderRadius: Styles.panelBorder,
                       body: Container())
                 ]))));
   }
