@@ -1,5 +1,6 @@
 import 'package:TamrielTrade/features/home/bloc/home_bloc.dart';
 import 'package:TamrielTrade/features/home/ui/item_card.dart';
+import 'package:TamrielTrade/values/values.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -18,7 +19,10 @@ class HomeList extends StatelessWidget {
         ? Container(alignment: Alignment.center, child: Text("Error! Boo!"))
         : SingleChildScrollView(
             controller: _controller,
-            child: Column(children: _items(context)),
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: Dimensions.padding16),
+              child: Column(children: _items(context)),
+            ),
           );
   }
 

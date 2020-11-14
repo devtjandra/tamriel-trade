@@ -28,9 +28,18 @@ class RadioRow extends StatelessWidget {
       child: InkWell(
         onTap: () => onSelect != null ? onSelect(optionText) : () {},
         child: Container(
+          decoration: isSelected
+              ? BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(90)),
+                  border: Border.all(color: Colors.black54, width: 1))
+              : null,
+          alignment: Alignment.center,
           padding: EdgeInsets.all(Dimensions.padding6),
-          color: isSelected ? Colors.blue : Colors.white,
-          child: Text(optionText),
+          child: Text(
+            optionText,
+            style: TextStyle(
+                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal),
+          ),
         ),
       ),
     );

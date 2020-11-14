@@ -1,7 +1,6 @@
 import 'package:TamrielTrade/models/item.dart';
 import 'package:TamrielTrade/values/values.dart';
 import 'package:TamrielTrade/views/item_image.dart';
-import 'package:TamrielTrade/views/horizontal_line.dart';
 import 'package:flutter/material.dart';
 
 class ItemCard extends StatelessWidget {
@@ -11,42 +10,56 @@ class ItemCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [_item(), HorizontalLine()],
+    return Padding(
+      padding: EdgeInsets.symmetric(
+          horizontal: Dimensions.padding24, vertical: Dimensions.padding12),
+      child: Container(
+        padding: EdgeInsets.only(
+            left: Dimensions.padding24,
+            right: Dimensions.padding24,
+            bottom: Dimensions.padding16,
+            top: Dimensions.padding12),
+        decoration: BoxDecoration(
+            borderRadius: Styles.cardBorder,
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                  color: const Color(0x1a000000),
+                  offset: Offset(0, 0),
+                  blurRadius: 5,
+                  spreadRadius: 0)
+            ]),
+        child: _item(),
+      ),
     );
   }
 
   Widget _item() {
-    return Padding(
-      padding: EdgeInsets.symmetric(
-          horizontal: Dimensions.padding16, vertical: Dimensions.padding12),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _lastSeen(),
-          _header(),
-          Text(
-            "Location",
-            style: Styles.description,
-          ),
-          Text(item.location),
-          Container(
-            height: Dimensions.padding6,
-          ),
-          Text(
-            "Trader",
-            style: Styles.description,
-          ),
-          Text(item.trader),
-          Container(
-            height: Dimensions.padding6,
-          ),
-          _priceRow("Price", item.price, false),
-          _priceRow("Quantity", item.quantity, false),
-          _priceRow("Total", item.total, true),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _lastSeen(),
+        _header(),
+        Text(
+          "Location",
+          style: Styles.description,
+        ),
+        Text(item.location),
+        Container(
+          height: Dimensions.padding6,
+        ),
+        Text(
+          "Trader",
+          style: Styles.description,
+        ),
+        Text(item.trader),
+        Container(
+          height: Dimensions.padding24,
+        ),
+        _priceRow("Price", item.price, false),
+        _priceRow("Quantity", item.quantity, false),
+        _priceRow("Total", item.total, true),
+      ],
     );
   }
 
