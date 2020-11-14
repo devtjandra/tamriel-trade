@@ -17,7 +17,9 @@ class Input extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(90)),
           border: Border.all(color: Colors.black54, width: 1)),
       child: definiteValue != null
-          ? Text(definiteValue)
+          ? Padding(
+              padding: EdgeInsets.symmetric(vertical: Dimensions.padding2),
+              child: Text(definiteValue))
           : TextField(
               onChanged: onChange != null ? onChange : (value) {},
               decoration: InputDecoration.collapsed(

@@ -1,3 +1,4 @@
+import 'package:TamrielTrade/common/types.dart';
 import 'package:TamrielTrade/models/autocomplete_result.dart';
 import 'package:TamrielTrade/models/filter_options.dart';
 import 'package:TamrielTrade/models/item.dart';
@@ -7,6 +8,29 @@ import 'package:flutter/material.dart';
 import 'package:web_scraper/web_scraper.dart';
 
 class HomeRepository {
+  String _sortType(String type) {
+    switch (type) {
+      case SortType.itemName:
+        return "itemName";
+
+      case SortType.lastSeen:
+        return "lastSeen";
+
+      default:
+        return "price";
+    }
+  }
+
+  String _sortOrder(String order) {
+    switch (order) {
+      case SortOrder.ascending:
+        return "asc";
+
+      default:
+        return "desc";
+    }
+  }
+
   Future<List<Item>> search(String name,
       {int page,
       FilterOptions options,
@@ -17,15 +41,15 @@ class HomeRepository {
       "isChampionPoint": "false",
       "itemNamePattern":
           autocomplete != null ? autocomplete.value : name.replaceAll(" ", "+"),
-      "itemId": autocomplete != null ? autocomplete.itemId.toString(): "",
+      "itemId": autocomplete != null ? autocomplete.itemId.toString() : "",
       "amountMin":
           options.minQuantity != null ? options.minQuantity.toString() : "",
       "amountMax":
           options.maxQuantity != null ? options.maxQuantity.toString() : "",
       "priceMin": options.minPrice != null ? options.minPrice.toString() : "",
       "priceMax": options.maxPrice != null ? options.maxPrice.toString() : "",
-      "sortBy": options.sortType != null ? options.sortType : "",
-      "order": options.sortOrder != null ? options.sortOrder : "",
+      "sortBy": options.sortType != null ? _sortType(options.sortType) : "",
+      "order": options.sortOrder != null ? _sortOrder(options.sortOrder) : "",
     };
 
     final webScraper = WebScraper(Strings.baseUrl);
