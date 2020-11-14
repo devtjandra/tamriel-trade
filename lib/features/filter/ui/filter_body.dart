@@ -13,8 +13,7 @@ class FilterBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: Padding(
+      body: Container(
           padding: EdgeInsets.symmetric(horizontal: Dimensions.padding24),
           child: SingleChildScrollView(
             child: Column(
@@ -23,7 +22,10 @@ class FilterBody extends StatelessWidget {
                 Container(
                   height: Dimensions.padding16,
                 ),
-                // _clear(context),
+                Text("Filtering Options", style: TextStyle(fontWeight: FontWeight.bold)),
+                Container(
+                  height: Dimensions.padding12,
+                ),
                 RadioRow(
                     options: sortTypes,
                     selectedOption: context.watch<FilterBloc>().sortType,

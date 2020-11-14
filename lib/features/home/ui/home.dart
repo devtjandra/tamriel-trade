@@ -42,7 +42,7 @@ class Home extends StatelessWidget {
                     borderRadius: Styles.panelBorder,
                     body: SafeArea(
                       child: Scaffold(
-                        backgroundColor: Colors.white,
+                        backgroundColor: Color(0xfff9f9f9),
                         body: _body(),
                       ),
                     ),

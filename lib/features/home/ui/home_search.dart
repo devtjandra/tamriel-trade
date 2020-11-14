@@ -8,7 +8,8 @@ import 'package:TamrielTrade/values/values.dart';
 class HomeSearch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
+      color: Colors.white,
       padding: EdgeInsets.all(Dimensions.padding16),
       child: Column(
         children: [
