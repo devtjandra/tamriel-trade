@@ -11,9 +11,11 @@ class RadioRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: _options(),
-    );
+    return Container(
+        padding: EdgeInsets.symmetric(horizontal: Dimensions.padding24),
+        child: Row(
+          children: _options(),
+        ));
   }
 
   List<Widget> _options() {
@@ -34,7 +36,7 @@ class RadioRow extends StatelessWidget {
                   border: Border.all(color: Colors.black54, width: 1))
               : null,
           alignment: Alignment.center,
-          padding: EdgeInsets.all(Dimensions.padding6),
+          padding: EdgeInsets.symmetric(vertical: Dimensions.padding12),
           child: Text(
             optionText,
             style: TextStyle(

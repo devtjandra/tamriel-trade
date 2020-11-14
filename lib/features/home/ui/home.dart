@@ -36,7 +36,7 @@ class Home extends StatelessWidget {
                   SlidingUpPanel(
                     controller: _filterController,
                     minHeight: 0,
-                    maxHeight: MediaQuery.of(context).size.height - 160,
+                    maxHeight: MediaQuery.of(context).size.height - 190,
                     defaultPanelState: PanelState.CLOSED,
                     panel: Filter(),
                     borderRadius: Styles.panelBorder,
@@ -50,7 +50,7 @@ class Home extends StatelessWidget {
                   SlidingUpPanel(
                       controller: _autocompleteController,
                       minHeight: 0,
-                      maxHeight: MediaQuery.of(context).size.height - 150,
+                      maxHeight: MediaQuery.of(context).size.height - 190,
                       defaultPanelState: PanelState.CLOSED,
                       panel: Autocomplete(),
                       borderRadius: Styles.panelBorder,

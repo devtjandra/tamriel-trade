@@ -10,11 +10,23 @@ class HomeSearch extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
-      padding: EdgeInsets.all(Dimensions.padding16),
+      padding: EdgeInsets.symmetric(
+          horizontal: Dimensions.padding24, vertical: Dimensions.padding16),
       child: Column(
         children: [
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text("Tamriel Trade Center",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0)),
+          ),
+          Container(
+            height: Dimensions.padding12,
+          ),
           Row(children: [
             Expanded(child: _input(context)),
+            Container(
+              width: Dimensions.padding6,
+            ),
             IconButton(
                 icon: Icon(Icons.filter_list_rounded),
                 onPressed: () => context.read<HomeBloc>().openFilter()),

@@ -12,30 +12,34 @@ class MinMaxInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-            padding: EdgeInsets.only(bottom: Dimensions.padding6),
-            child: Text(title)),
-        Row(
+    return Container(
+        padding: EdgeInsets.symmetric(horizontal: Dimensions.padding24),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              width: Dimensions.minMaxWidth,
-              child: Input(
-                  hint: "Min",
-                  onChange: onChangeMin != null ? onChangeMin : (value) {}),
-            ),
-            Expanded(child: Container()),
-            Container(
-              width: Dimensions.minMaxWidth,
-              child: Input(
-                  hint: "Max",
-                  onChange: onChangeMax != null ? onChangeMax : (value) {}),
+            Padding(
+                padding: EdgeInsets.only(bottom: Dimensions.padding6),
+                child: Text(title)),
+            Row(
+              children: [
+                Container(
+                  width: Dimensions.minMaxWidth,
+                  child: Input(
+                      hint: "Min",
+                      isCenter: true,
+                      onChange: onChangeMin != null ? onChangeMin : (value) {}),
+                ),
+                Expanded(child: Container()),
+                Container(
+                  width: Dimensions.minMaxWidth,
+                  child: Input(
+                      hint: "Max",
+                      isCenter: true,
+                      onChange: onChangeMax != null ? onChangeMax : (value) {}),
+                )
+              ],
             )
           ],
-        )
-      ],
-    );
+        ));
   }
 }

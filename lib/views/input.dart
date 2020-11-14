@@ -6,8 +6,9 @@ class Input extends StatelessWidget {
   final StringCallback onChange;
   final String hint;
   final String definiteValue;
+  final bool isCenter;
 
-  Input({this.onChange, this.hint, this.definiteValue});
+  Input({this.onChange, this.hint, this.definiteValue, this.isCenter = false});
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +22,7 @@ class Input extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: Dimensions.padding2),
               child: Text(definiteValue))
           : TextField(
+              textAlign: isCenter ? TextAlign.center : TextAlign.start,
               onChanged: onChange != null ? onChange : (value) {},
               decoration: InputDecoration.collapsed(
                   hintText: this.hint != null ? hint : "",

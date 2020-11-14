@@ -1,5 +1,6 @@
 import 'package:TamrielTrade/models/item.dart';
 import 'package:TamrielTrade/values/values.dart';
+import 'package:TamrielTrade/views/horizontal_line.dart';
 import 'package:TamrielTrade/views/item_image.dart';
 import 'package:flutter/material.dart';
 
@@ -14,11 +15,6 @@ class ItemCard extends StatelessWidget {
       padding: EdgeInsets.symmetric(
           horizontal: Dimensions.padding24, vertical: Dimensions.padding12),
       child: Container(
-        padding: EdgeInsets.only(
-            left: Dimensions.padding24,
-            right: Dimensions.padding24,
-            bottom: Dimensions.padding16,
-            top: Dimensions.padding12),
         decoration: BoxDecoration(
             borderRadius: Styles.cardBorder,
             color: Colors.white,
@@ -38,34 +34,61 @@ class ItemCard extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Container(
+          height: Dimensions.padding12,
+        ),
         _lastSeen(),
         _header(),
-        Text(
-          "Location",
-          style: Styles.description,
+        HorizontalLine(),
+        Container(
+          height: Dimensions.padding12,
         ),
-        Text(item.location),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: Dimensions.padding24),
+          child: Text(
+            "Location",
+            style: Styles.description,
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: Dimensions.padding24),
+          child: Text(item.location),
+        ),
         Container(
           height: Dimensions.padding6,
         ),
-        Text(
-          "Trader",
-          style: Styles.description,
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: Dimensions.padding24),
+          child: Text(
+            "Trader",
+            style: Styles.description,
+          ),
         ),
-        Text(item.trader),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: Dimensions.padding24),
+          child: Text(item.trader),
+        ),
         Container(
-          height: Dimensions.padding24,
+          height: Dimensions.padding12,
+        ),
+        HorizontalLine(),
+        Container(
+          height: Dimensions.padding8,
         ),
         _priceRow("Price", item.price, false),
         _priceRow("Quantity", item.quantity, false),
         _priceRow("Total", item.total, true),
+        Container(
+          height: Dimensions.padding16,
+        ),
       ],
     );
   }
 
   Widget _priceRow(String key, String value, bool isTotal) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: Dimensions.padding2),
+      padding: EdgeInsets.symmetric(
+          vertical: Dimensions.padding2, horizontal: Dimensions.padding24),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -83,7 +106,10 @@ class ItemCard extends StatelessWidget {
 
   Widget _header() {
     return Padding(
-      padding: EdgeInsets.only(bottom: Dimensions.padding6),
+      padding: EdgeInsets.only(
+          bottom: Dimensions.padding12,
+          left: Dimensions.padding24,
+          right: Dimensions.padding24),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -92,7 +118,8 @@ class ItemCard extends StatelessWidget {
           Expanded(
               child: Padding(
             padding: EdgeInsets.symmetric(horizontal: Dimensions.padding12),
-            child: Text(item.name),
+            child:
+                Text(item.name, style: TextStyle(fontWeight: FontWeight.bold)),
           ))
         ],
       ),
@@ -100,12 +127,15 @@ class ItemCard extends StatelessWidget {
   }
 
   Widget _lastSeen() {
-    return Align(
+    return Container(
+        padding: EdgeInsets.symmetric(horizontal: Dimensions.padding24),
         alignment: Alignment.centerRight,
         child: Text(_time(), style: Styles.description));
   }
 
   String _time() {
+    debugPrint("Item last seen: ${item.lastSeen}");
+    
     final time = int.parse(item.lastSeen);
 
     if (time < 60) return "$time mins ago";

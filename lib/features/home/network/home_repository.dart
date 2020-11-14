@@ -21,13 +21,13 @@ class HomeRepository {
     }
   }
 
-  String _sortOrder(String order) {
+  String _sortOrder(String order, String type) {
     switch (order) {
       case SortOrder.ascending:
-        return "asc";
+        return type == SortType.lastSeen ? "desc" : "asc";
 
       default:
-        return "desc";
+        return type != SortType.lastSeen ? "desc" : "asc";
     }
   }
 
@@ -42,14 +42,24 @@ class HomeRepository {
       "itemNamePattern":
           autocomplete != null ? autocomplete.value : name.replaceAll(" ", "+"),
       "itemId": autocomplete != null ? autocomplete.itemId.toString() : "",
-      "amountMin":
-          options.minQuantity != null ? options.minQuantity.toString() : "",
-      "amountMax":
-          options.maxQuantity != null ? options.maxQuantity.toString() : "",
-      "priceMin": options.minPrice != null ? options.minPrice.toString() : "",
-      "priceMax": options.maxPrice != null ? options.maxPrice.toString() : "",
-      "sortBy": options.sortType != null ? _sortType(options.sortType) : "",
-      "order": options.sortOrder != null ? _sortOrder(options.sortOrder) : "",
+      "amountMin": options != null && options.minQuantity != null
+          ? options.minQuantity.toString()
+          : "",
+      "amountMax": options != null && options.maxQuantity != null
+          ? options.maxQuantity.toString()
+          : "",
+      "priceMin": options != null && options.minPrice != null
+          ? options.minPrice.toString()
+          : "",
+      "priceMax": options != null && options.maxPrice != null
+          ? options.maxPrice.toString()
+          : "",
+      "sortBy": options != null && options.sortType != null
+          ? _sortType(options.sortType)
+          : "",
+      "order": options != null && options.sortOrder != null
+          ? _sortOrder(options.sortOrder, options.sortType)
+          : "",
     };
 
     final webScraper = WebScraper(Strings.baseUrl);
