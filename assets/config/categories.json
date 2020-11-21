@@ -1,0 +1,220 @@
+{
+  "categories": [
+    {
+      "id": 1,
+      "name": "Apparel",
+      "subcategories": [
+        {
+          "id": 2,
+          "name": "Light Armor",
+          "subsubcategories": [
+            { "id": 12, "name": "Chest" },
+            { "id": 13, "name": "Feet" },
+            { "id": 14, "name": "Hands" },
+            { "id": 15, "name": "Head" },
+            { "id": 16, "name": "Legs" },
+            { "id": 17, "name": "Shoulders" },
+            { "id": 18, "name": "Waist" }
+          ]
+        },
+        {
+          "id": 3,
+          "name": "Medium Armor",
+          "subsubcategories": [
+            { "id": 19, "name": "Chest" },
+            { "id": 20, "name": "Feet" },
+            { "id": 21, "name": "Hands" },
+            { "id": 22, "name": "Head" },
+            { "id": 23, "name": "Legs" },
+            { "id": 24, "name": "Shoulders" },
+            { "id": 25, "name": "Waist" }
+          ]
+        },
+        {
+          "id": 4,
+          "name": "Heavy Armor",
+          "subsubcategories": [
+            { "id": 26, "name": "Chest" },
+            { "id": 27, "name": "Feet" },
+            { "id": 28, "name": "Hands" },
+            { "id": 29, "name": "Head" },
+            { "id": 30, "name": "Legs" },
+            { "id": 31, "name": "Shoulders" },
+            { "id": 32, "name": "Waist" }
+          ]
+        },
+        {
+          "id": 6,
+          "name": "Accessories",
+          "subsubcategories": [
+            { "id": 33, "name": "Appearance" },
+            { "id": 34, "name": "Neck" },
+            { "id": 35, "name": "Ring" }
+          ]
+        },
+        { "id": 5, "name": "Shield" }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Crafting",
+      "subcategories": [
+        {
+          "id": 11,
+          "name": "Alchemy",
+          "subsubcategories": [
+            { "id": 52, "name": "Poison Base" },
+            { "id": 36, "name": "Potion Base" },
+            { "id": 37, "name": "Reagent" }
+          ]
+        },
+        {
+          "id": 19,
+          "name": "Armor Trait"
+        },
+        {
+          "id": 12,
+          "name": "Blacksmithing",
+          "subsubcategories": [
+            { "id": 39, "name": "Material" },
+            { "id": 38, "name": "Raw Material" },
+            { "id": 40, "name": "Temper" }
+          ]
+        },
+        {
+          "id": 13,
+          "name": "Clothing",
+          "subsubcategories": [
+            { "id": 42, "name": "Material" },
+            { "id": 41, "name": "Raw Material" },
+            { "id": 43, "name": "Tannin" }
+          ]
+        },
+        {
+          "id": 14,
+          "name": "Enchanting",
+          "subsubcategories": [
+            { "id": 44, "name": "Aspect Runestone" },
+            { "id": 45, "name": "Essence Runestone" },
+            { "id": 46, "name": "Potency Runestone" }
+          ]
+        },
+        {
+          "id": 41,
+          "name": "Jewelry Crafting",
+          "subsubcategories": [
+            { "id": 54, "name": "Material" },
+            { "id": 53, "name": "Raw Material" },
+            { "id": 55, "name": "Plating" }
+          ]
+        },
+        { "id": 42, "name": "Jewelry Trait" },
+        { "id": 39, "name": "Master Writ" },
+        { "id": 17, "name": "Motif" },
+        {
+          "id": 15,
+          "name": "Provisioning",
+          "subsubcategories": [
+            { "id": 47, "name": "Provisioning" },
+            { "id": 48, "name": "Recipes" }
+          ]
+        },
+        { "id": 43, "name": "Raw Trait" },
+        { "id": 18, "name": "Style Material" },
+        { "id": 30, "name": "Style Raw Material" },
+        { "id": 20, "name": "Weapon Trait" },
+        {
+          "id": 16,
+          "name": "Woodworking",
+          "subsubcategories": [
+            { "id": 50, "name": "Material" },
+            { "id": 49, "name": "Raw Material" },
+            { "id": 51, "name": "Resin" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Food & Potions",
+      "subcategories": [
+        { "id": 22, "name": "Drink" },
+        { "id": 21, "name": "Food" },
+        { "id": 32, "name": "Poison" },
+        { "id": 23, "name": "Potion" }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Furnishing",
+      "subcategories": [
+        { "id": 33, "name": "Crafting Station" },
+        { "id": 34, "name": "Light" },
+        { "id": 40, "name": "Material" },
+        { "id": 35, "name": "Ornamental" },
+        { "id": 38, "name": "Recipe" },
+        { "id": 36, "name": "Seating" },
+        { "id": 37, "name": "Target Dummy" }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Soul Gems & Glyphs",
+      "subcategories": [
+        { "id": 8, "name": "Armor Glyphs" },
+        { "id": 10, "name": "Jewelry Glyphs" },
+        { "id": 9, "name": "Weapon Glyphs" },
+        { "id": 7, "name": "Soul Gems" }
+      ]
+    },
+    {
+      "id": 0,
+      "name": "Weapon",
+      "subcategories": [
+        {
+          "id": 0,
+          "name": "One Handed",
+          "subsubcategories": [
+            { "id": 0, "name": "Axe" },
+            { "id": 1, "name": "Mace" },
+            { "id": 2, "name": "Sword" },
+            { "id": 3, "name": "Dagger" }
+          ]
+        },
+        {
+          "id": 1,
+          "name": "Two Handed",
+          "subcategories": [
+            {
+              "id": 0,
+              "name": "One Handed",
+              "subsubcategories": [
+                { "id": 4, "name": "Axe" },
+                { "id": 5, "name": "Sword" },
+                { "id": 6, "name": "Mace" },
+                { "id": 7, "name": "Bow" },
+                { "id": 8, "name": "Healing Staff" },
+                { "id": 9, "name": "Flame Staff" },
+                { "id": 10, "name": "Frost Staff" },
+                { "id": 11, "name": "Lightning Staff" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Other",
+      "subcategories": [
+        { "id": 24, "name": "Bait" },
+        { "id": 28, "name": "Container" },
+        { "id": 29, "name": "Fish" },
+        { "id": 31, "name": "Misc" },
+        { "id": 26, "name": "Seige" },
+        { "id": 25, "name": "Tools" },
+        { "id": 27, "name": "Trophy" }
+      ]
+    }
+  ]
+}

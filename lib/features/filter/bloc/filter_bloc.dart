@@ -1,4 +1,5 @@
 import 'package:TamrielTrade/common/types.dart';
+import 'package:TamrielTrade/features/filter/network/filter_repository.dart';
 import 'package:TamrielTrade/features/home/bloc/home_bloc.dart';
 import 'package:TamrielTrade/models/filter_options.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'package:provider/provider.dart';
 
 class FilterBloc extends ChangeNotifier {
   final BuildContext _context;
+  final repository = FilterRepository();
 
   int _minQuantity;
   int _maxQuantity;
