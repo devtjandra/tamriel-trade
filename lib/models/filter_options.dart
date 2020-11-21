@@ -8,6 +8,9 @@ class FilterOptions {
   final int maxPrice;
   final String sortType;
   final String sortOrder;
+  final int category1;
+  final int category2;
+  final int category3;
 
   FilterOptions(
       {this.minQuantity,
@@ -15,5 +18,8 @@ class FilterOptions {
       this.minPrice,
       this.maxPrice,
       this.sortType = SortType.lastSeen,
-      this.sortOrder = SortOrder.ascending});
+      this.sortOrder = SortOrder.ascending,
+      this.category1,
+      this.category2,
+      this.category3});
 }

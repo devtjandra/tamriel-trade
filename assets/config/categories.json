@@ -184,21 +184,15 @@
         {
           "id": 1,
           "name": "Two Handed",
-          "subcategories": [
-            {
-              "id": 0,
-              "name": "One Handed",
-              "subsubcategories": [
-                { "id": 4, "name": "Axe" },
-                { "id": 5, "name": "Sword" },
-                { "id": 6, "name": "Mace" },
-                { "id": 7, "name": "Bow" },
-                { "id": 8, "name": "Healing Staff" },
-                { "id": 9, "name": "Flame Staff" },
-                { "id": 10, "name": "Frost Staff" },
-                { "id": 11, "name": "Lightning Staff" }
-              ]
-            }
+          "subsubcategories": [
+            { "id": 4, "name": "Axe" },
+            { "id": 5, "name": "Sword" },
+            { "id": 6, "name": "Mace" },
+            { "id": 7, "name": "Bow" },
+            { "id": 8, "name": "Healing Staff" },
+            { "id": 9, "name": "Flame Staff" },
+            { "id": 10, "name": "Frost Staff" },
+            { "id": 11, "name": "Lightning Staff" }
           ]
         }
       ]

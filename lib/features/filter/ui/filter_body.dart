@@ -1,5 +1,6 @@
 import 'package:TamrielTrade/common/types.dart';
 import 'package:TamrielTrade/features/filter/bloc/filter_bloc.dart';
+import 'package:TamrielTrade/features/filter/ui/filter_categories.dart';
 import 'package:TamrielTrade/values/values.dart';
 import 'package:TamrielTrade/views/horizontal_line.dart';
 import 'package:TamrielTrade/views/min_max_input.dart';
@@ -57,7 +58,22 @@ class FilterBody extends StatelessWidget {
               ),
               HorizontalLine(),
               Container(
-                height: Dimensions.padding16,
+                height: Dimensions.padding24,
+              ),
+              Container(
+                  padding: EdgeInsets.only(
+                      bottom: Dimensions.padding8,
+                      left: Dimensions.padding24,
+                      right: Dimensions.padding24),
+                  alignment: Alignment.centerLeft,
+                  child: Text("Category")),
+              FilterCategories(),
+              Container(
+                height: Dimensions.padding24,
+              ),
+              HorizontalLine(),
+              Container(
+                height: Dimensions.padding24,
               ),
               _quantity(context),
               Container(
@@ -79,12 +95,6 @@ class FilterBody extends StatelessWidget {
         color: Colors.black87,
         onPressed: () => context.read<FilterBloc>().finish(),
         child: Text("Apply", style: TextStyle(color: Colors.white)));
-  }
-
-  Widget _clear(BuildContext context) {
-    return TextButton(
-        onPressed: () => context.read<FilterBloc>().clear(),
-        child: Text("Clear"));
   }
 
   Widget _quantity(BuildContext context) {

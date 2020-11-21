@@ -1,6 +1,7 @@
 import 'package:TamrielTrade/common/types.dart';
 import 'package:TamrielTrade/features/filter/network/filter_repository.dart';
 import 'package:TamrielTrade/features/home/bloc/home_bloc.dart';
+import 'package:TamrielTrade/models/category.dart';
 import 'package:TamrielTrade/models/filter_options.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -15,8 +16,38 @@ class FilterBloc extends ChangeNotifier {
   int _maxPrice;
   String sortType = SortType.lastSeen;
   String sortOrder = SortOrder.ascending;
+  List<Category> categories;
+  Category category;
+  Subcategory subcategory;
+  Subsubcategory subsubcategory;
 
-  FilterBloc(this._context);
+  FilterBloc(this._context) {
+    getCategories();
+  }
+
+  void getCategories() async {
+    categories = await repository.getCategories();
+    debugPrint("New categories! ${categories.length}");
+    notifyListeners();
+  }
+
+  void setCategory(Category value) {
+    category = value;
+    subcategory = null;
+    subsubcategory = null;
+    notifyListeners();
+  }
+
+  void setSubcategory(Subcategory value) {
+    subcategory = value;
+    subsubcategory = null;
+    notifyListeners();
+  }
+
+  void setSubsubcategory(Subsubcategory value) {
+    subsubcategory = value;
+    notifyListeners();
+  }
 
   void setMinQuantity(int value) {
     _minQuantity = value;
@@ -46,10 +77,6 @@ class FilterBloc extends ChangeNotifier {
   void setSortOrder(String value) {
     sortOrder = value;
     notifyListeners();
-  }
-
-  void clear() {
-    // TODO: Damn this might take a while
   }
 
   void finish() {
