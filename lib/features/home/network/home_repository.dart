@@ -60,6 +60,15 @@ class HomeRepository {
       "order": options != null && options.sortOrder != null
           ? _sortOrder(options.sortOrder, options.sortType)
           : "",
+      "itemCategory1ID": options != null && options.category1 != null
+          ? options.category1.toString()
+          : "",
+      "itemCategory2ID": options != null && options.category2 != null
+          ? options.category2.toString()
+          : "",
+      "itemCategory3ID": options != null && options.category3 != null
+          ? options.category3.toString()
+          : ""
     };
 
     final webScraper = WebScraper(Strings.baseUrl);

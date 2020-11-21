@@ -86,6 +86,9 @@ class FilterBloc extends ChangeNotifier {
         minPrice: _minPrice,
         maxPrice: _maxPrice,
         sortType: sortType,
-        sortOrder: sortOrder));
+        sortOrder: sortOrder,
+        category1: category != null ? category.id : null,
+        category2: subcategory != null ? subcategory.id : null,
+        category3: subsubcategory != null ? subsubcategory.id : null));
   }
 }
