@@ -34,20 +34,6 @@ class HomeSearch extends StatelessWidget {
           Container(
             height: Dimensions.padding6,
           ),
-          RaisedButton(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(50.0))),
-              color: Colors.black87,
-              onPressed: () => context.read<HomeBloc>().restartSearch(),
-              child: Text("Search", style: TextStyle(color: Colors.white))),
-          Container(
-            height: Dimensions.padding6,
-          ),
-          AnimatedOpacity(
-            opacity: context.watch<HomeBloc>().isWaiting ? 1 : 0,
-            duration: Duration(milliseconds: 100),
-            child: ProgressBar(),
-          )
         ],
       ),
     );
@@ -55,18 +41,24 @@ class HomeSearch extends StatelessWidget {
 
   Widget _input(BuildContext context) {
     final autocomplete = context.watch<HomeBloc>().autocompleteResult;
+    final isWaiting = context.watch<HomeBloc>().isWaiting;
 
-    if (autocomplete != null) {
-      return InkWell(
-          onTap: () => context.read<HomeBloc>().clearAutocomplete(),
-          child: Input(
-            definiteValue: autocomplete.value,
-          ));
-    } else {
-      return Input(
-        onChange: (value) => context.read<HomeBloc>().setSearch(value),
-        hint: "Search",
-      );
-    }
+    return Input(
+      onChange: (value) => context.read<HomeBloc>().setSearch(value),
+      definiteValue: autocomplete != null ? autocomplete.value : null,
+      hint: "Search",
+      suffixIcon: isWaiting
+          ? ProgressBar()
+          : IconButton(
+              iconSize: Dimensions.loadingSize,
+              icon: Icon(
+                Icons.search,
+              ),
+              padding: EdgeInsets.zero,
+              constraints: BoxConstraints(),
+              onPressed: () => context.read<HomeBloc>().restartSearch(),
+            ),
+    );
+    // }
   }
 }

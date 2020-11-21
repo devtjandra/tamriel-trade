@@ -27,6 +27,7 @@ class MinMaxInput extends StatelessWidget {
                   child: Input(
                       hint: "Min",
                       isCenter: true,
+                      isNumber: true,
                       onChange: onChangeMin != null ? onChangeMin : (value) {}),
                 ),
                 Expanded(child: Container()),
@@ -35,6 +36,7 @@ class MinMaxInput extends StatelessWidget {
                   child: Input(
                       hint: "Max",
                       isCenter: true,
+                      isNumber: true,
                       onChange: onChangeMax != null ? onChangeMax : (value) {}),
                 )
               ],

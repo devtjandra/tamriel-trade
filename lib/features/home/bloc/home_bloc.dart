@@ -28,7 +28,12 @@ class HomeBloc extends ChangeNotifier {
   // Updates the search value in the bloc.
   void setSearch(String value) {
     searchValue = value;
-    if (value.length > 2 && autocompleteResult == null) _openAutocomplete();
+    
+    if (value.length > 2 && autocompleteResult == null)
+      _openAutocomplete();
+    else if (autocompleteResult != null && value != autocompleteResult.value)
+      autocompleteResult = null;
+
     notifyListeners();
   }
 
