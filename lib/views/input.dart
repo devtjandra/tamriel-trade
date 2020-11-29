@@ -26,9 +26,14 @@ class _InputState extends State<Input> {
   TextEditingController controller = TextEditingController();
 
   @override
-  Widget build(BuildContext context) {
-    if (widget.definiteValue != null) controller.text = widget.definiteValue;
+  void initState() {
+    controller.text = widget.definiteValue ?? "";
 
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
         padding: EdgeInsets.all(Dimensions.padding12),
         decoration: BoxDecoration(
