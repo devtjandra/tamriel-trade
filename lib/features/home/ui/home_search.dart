@@ -1,4 +1,5 @@
 import 'package:TamrielTrade/features/home/bloc/home_bloc.dart';
+import 'package:TamrielTrade/views/dropdown_chip.dart';
 import 'package:TamrielTrade/views/input.dart';
 import 'package:TamrielTrade/views/progress_bar.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,12 @@ class HomeSearch extends StatelessWidget {
           horizontal: Dimensions.padding24, vertical: Dimensions.padding16),
       child: Column(
         children: [
+          Align(
+              alignment: Alignment.centerRight,
+              child: DropdownChip(
+                context.watch<HomeBloc>().platformText(),
+                callback: () => context.read<HomeBloc>().openPlatform(),
+              )),
           Align(
             alignment: Alignment.centerLeft,
             child: Text("Tamriel Trade Center",

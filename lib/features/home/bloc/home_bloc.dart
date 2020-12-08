@@ -53,7 +53,8 @@ class HomeBloc extends ChangeNotifier {
     notifyListeners();
 
     await repository
-        .search(searchValue, page: page, options: filterOptions)
+        .search(searchValue,
+            page: page, options: filterOptions, platform: platformOptions)
         .then((value) {
       items.addAll(value);
       page++;
@@ -91,7 +92,15 @@ class HomeBloc extends ChangeNotifier {
   void openFilter() {
     FocusScope.of(_context).unfocus();
     _autocompleteController.close();
+    _platformSelectorController.close();
     _filterController.open();
+  }
+
+  void openPlatform() {
+    FocusScope.of(_context).unfocus();
+    _autocompleteController.close();
+    _filterController.close();
+    _platformSelectorController.open();
   }
 
   // Returns from the filter panel with some new filters.
@@ -104,15 +113,20 @@ class HomeBloc extends ChangeNotifier {
   // Returns from the filter panel with some new filters.
   void setPlatformOptions(PlatformOptions value) {
     platformOptions = value;
+    notifyListeners();
     _platformSelectorController.close();
     restartSearch();
+  }
+
+  String platformText() {
+    return "${platformOptions.console} - ${platformOptions.region}";
   }
 
   // Opens up the autocomplete panel.
   void _openAutocomplete() {
     _filterController.close();
+    _platformSelectorController.close();
     _autocompleteController.open();
-    _filterController.close();
     autocomplete();
   }
 

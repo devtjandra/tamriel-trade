@@ -3,7 +3,7 @@ import 'package:TamrielTrade/features/filter/ui/filter.dart';
 import 'package:TamrielTrade/features/home/bloc/home_bloc.dart';
 import 'package:TamrielTrade/features/home/ui/home_list.dart';
 import 'package:TamrielTrade/features/home/ui/home_search.dart';
-import 'package:TamrielTrade/features/platform_selector/ui/platform_selector_body.dart';
+import 'package:TamrielTrade/features/platform_selector/ui/platform_selector.dart';
 import 'package:TamrielTrade/values/values.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -62,7 +62,7 @@ class Home extends StatelessWidget {
                       minHeight: 0,
                       maxHeight: MediaQuery.of(context).size.height - 190,
                       defaultPanelState: PanelState.CLOSED,
-                      panel: PlatformSelectorBody(),
+                      panel: PlatformSelector(),
                       borderRadius: Styles.panelBorder,
                       body: Container())
                 ]))));
