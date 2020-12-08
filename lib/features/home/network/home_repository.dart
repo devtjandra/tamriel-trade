@@ -2,6 +2,7 @@ import 'package:TamrielTrade/common/types.dart';
 import 'package:TamrielTrade/models/autocomplete_result.dart';
 import 'package:TamrielTrade/models/filter_options.dart';
 import 'package:TamrielTrade/models/item.dart';
+import 'package:TamrielTrade/models/platform_options.dart';
 import 'package:TamrielTrade/values/values.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -34,6 +35,7 @@ class HomeRepository {
   Future<List<Item>> search(String name,
       {int page,
       FilterOptions options,
+      PlatformOptions platform,
       AutocompleteResult autocomplete}) async {
     final params = {
       "searchType": "sell",
@@ -71,7 +73,9 @@ class HomeRepository {
           : ""
     };
 
-    final webScraper = WebScraper(Strings.baseUrl);
+    final baseUrl =
+        "https://${Region.getUrlString(platform.region)}.tamrieltradecentre.com/${Console.getUrlString(platform.console)}";
+    final webScraper = WebScraper(baseUrl);
     await webScraper.loadWebPage(getRequest(params));
 
     final result = webScraper.getElement('tr.cursor-pointer', []);
@@ -124,17 +128,21 @@ class HomeRepository {
   }
 
   String getRequest(Map<String, String> params) {
-    String request = "/pc/trade/searchResult?";
+    String request = "/trade/searchResult?";
     params.forEach((key, value) => request += "$key=$value&");
     debugPrint("Request: $request");
     return request;
   }
 
-  Future<List<AutocompleteResult>> autocomplete(String query) async {
+  Future<List<AutocompleteResult>> autocomplete(
+      String query, PlatformOptions platform) async {
+    final baseUrl =
+        "https://${Region.getUrlString(platform.region)}.tamrieltradecentre.com/";
     final dio = Dio();
     dio.options =
-        BaseOptions(baseUrl: Strings.baseUrl, queryParameters: {"term": query});
-    final response = await dio.get("/api/pc/Trade/GetItemAutoComplete");
+        BaseOptions(baseUrl: baseUrl, queryParameters: {"term": query});
+    final response = await dio.get(
+        "/api/${Console.getUrlString(platform.console)}/Trade/GetItemAutoComplete");
     final resultMap = response.data as List<dynamic>;
 
     List<AutocompleteResult> results = List();

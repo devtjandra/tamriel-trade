@@ -3,6 +3,7 @@ import 'package:TamrielTrade/features/filter/ui/filter.dart';
 import 'package:TamrielTrade/features/home/bloc/home_bloc.dart';
 import 'package:TamrielTrade/features/home/ui/home_list.dart';
 import 'package:TamrielTrade/features/home/ui/home_search.dart';
+import 'package:TamrielTrade/features/platform_selector/ui/platform_selector_body.dart';
 import 'package:TamrielTrade/values/values.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -10,6 +11,7 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class Home extends StatelessWidget {
   final PanelController _filterController = PanelController();
+  final PanelController _platformSelectorController = PanelController();
   final PanelController _autocompleteController = PanelController();
 
   @override
@@ -18,8 +20,8 @@ class Home extends StatelessWidget {
         backgroundColor: Colors.white,
         resizeToAvoidBottomInset: false,
         body: ChangeNotifierProvider(
-            create: (_) =>
-                HomeBloc(context, _filterController, _autocompleteController),
+            create: (_) => HomeBloc(context, _filterController,
+                _platformSelectorController, _autocompleteController),
             child: WillPopScope(
                 onWillPop: () async {
                   if (_autocompleteController.isPanelOpen) {
@@ -53,6 +55,14 @@ class Home extends StatelessWidget {
                       maxHeight: MediaQuery.of(context).size.height - 190,
                       defaultPanelState: PanelState.CLOSED,
                       panel: Autocomplete(),
+                      borderRadius: Styles.panelBorder,
+                      body: Container()),
+                  SlidingUpPanel(
+                      controller: _platformSelectorController,
+                      minHeight: 0,
+                      maxHeight: MediaQuery.of(context).size.height - 190,
+                      defaultPanelState: PanelState.CLOSED,
+                      panel: PlatformSelectorBody(),
                       borderRadius: Styles.panelBorder,
                       body: Container())
                 ]))));

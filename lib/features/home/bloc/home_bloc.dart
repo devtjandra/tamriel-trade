@@ -1,13 +1,16 @@
+import 'package:TamrielTrade/common/types.dart';
 import 'package:TamrielTrade/features/home/network/home_repository.dart';
 import 'package:TamrielTrade/models/autocomplete_result.dart';
 import 'package:TamrielTrade/models/item.dart';
 import 'package:TamrielTrade/models/filter_options.dart';
+import 'package:TamrielTrade/models/platform_options.dart';
 import 'package:flutter/material.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class HomeBloc extends ChangeNotifier {
   final BuildContext _context;
   final PanelController _filterController;
+  final PanelController _platformSelectorController;
   final PanelController _autocompleteController;
   final repository = HomeRepository();
 
@@ -18,17 +21,20 @@ class HomeBloc extends ChangeNotifier {
   String searchValue = "";
 
   FilterOptions filterOptions = FilterOptions();
+  PlatformOptions platformOptions =
+      PlatformOptions(region: Region.northAmerica, console: Console.pc);
 
   bool isWaitingAutocomplete = false;
   List<AutocompleteResult> results = List();
   AutocompleteResult autocompleteResult;
 
-  HomeBloc(this._context, this._filterController, this._autocompleteController);
+  HomeBloc(this._context, this._filterController,
+      this._platformSelectorController, this._autocompleteController);
 
   // Updates the search value in the bloc.
   void setSearch(String value) {
     searchValue = value;
-    
+
     if (value.length > 2 && autocompleteResult == null)
       _openAutocomplete();
     else if (autocompleteResult != null && value != autocompleteResult.value)
@@ -95,6 +101,13 @@ class HomeBloc extends ChangeNotifier {
     restartSearch();
   }
 
+  // Returns from the filter panel with some new filters.
+  void setPlatformOptions(PlatformOptions value) {
+    platformOptions = value;
+    _platformSelectorController.close();
+    restartSearch();
+  }
+
   // Opens up the autocomplete panel.
   void _openAutocomplete() {
     _filterController.close();
@@ -124,7 +137,7 @@ class HomeBloc extends ChangeNotifier {
     isWaitingAutocomplete = true;
     notifyListeners();
 
-    await repository.autocomplete(searchValue).then((value) {
+    await repository.autocomplete(searchValue, platformOptions).then((value) {
       results = value;
     }).catchError((error) {
       // if (items.isEmpty) isError = true;
