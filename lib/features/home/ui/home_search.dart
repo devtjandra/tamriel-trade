@@ -21,6 +21,9 @@ class HomeSearch extends StatelessWidget {
                 context.watch<HomeBloc>().platformText(),
                 callback: () => context.read<HomeBloc>().openPlatform(),
               )),
+          Container(
+            height: Dimensions.padding6,
+          ),
           Align(
             alignment: Alignment.centerLeft,
             child: Text("Tamriel Trade Center",

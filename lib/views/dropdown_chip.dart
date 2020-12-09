@@ -1,4 +1,3 @@
-import 'package:TamrielTrade/values/values.dart';
 import 'package:flutter/material.dart';
 
 class DropdownChip extends StatelessWidget {
@@ -9,12 +8,20 @@ class DropdownChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RaisedButton(
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(50.0))),
-        color: Colors.red,
-        padding: EdgeInsets.all(Dimensions.padding2),
-        onPressed: callback,
-        child: Text(_title, style: TextStyle(color: Colors.white)));
+    return InkWell(
+      onTap: callback,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Text(
+            _title,
+            style: TextStyle(
+                color: Colors.blueAccent, fontWeight: FontWeight.bold),
+          ),
+          Icon(Icons.arrow_drop_down_outlined, color: Colors.blueAccent)
+        ],
+      ),
+    );
   }
 }
